@@ -1,11 +1,12 @@
-const express = require('express')
+const express = require('express');
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const app = express()
+var cors = require('cors');
+const app = express();
 const port = 3000
 
 
-    
-
+    // middleware 
+    app.use(cors())
 
 
 const uri = "mongodb+srv://fisino-website:97RTu4d3ray9TdxT@cluster0.qegqtqb.mongodb.net/?retryWrites=true&w=majority";
@@ -26,7 +27,9 @@ async function run() {
 
     app.get('/services',async(req,res) =>{
         const query  = {};
-        
+        const Services = await serviceCollection.find(query).toArray();
+        res.send(Services)
+
     })
 
   } finally {
